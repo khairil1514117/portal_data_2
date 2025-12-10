@@ -1,0 +1,258 @@
+/* ===============================
+   GLOBAL
+=============================== */
+html, body {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    overflow: hidden;
+    font-family: 'Inter', system-ui, Arial, sans-serif;
+}
+
+/* ===============================
+   CONTAINER UTAMA
+=============================== */
+.map-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+}
+
+/* ===============================
+   MAP (PANEL 1)
+=============================== */
+#map {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    position: relative;
+    transition: width 0.6s cubic-bezier(.4,0,.2,1);
+}
+
+.map-kiri {
+    width: 70% !important;
+}
+
+/* ===============================
+   PANEL KANAN (PANEL 2)
+=============================== */
+.panel-info {
+    width: 30%;
+    max-width: 360px;
+    background: rgba(255,255,255,0.96);
+    padding: 18px;
+    border-left: 2px solid #e5e7eb;
+    transition: all 0.6s cubic-bezier(.4,0,.2,1);
+    overflow-y: auto;
+}
+
+.panel-muncul {
+    width: 30% !important;
+}
+
+/* ===============================
+   PANEL DETAIL ANIMASI
+=============================== */
+#panelDetail {
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s ease;
+}
+
+#panelDetail.panel-fade {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ===============================
+   TOMBOL BACK
+=============================== */
+.btn-reset {
+    position: fixed;
+    bottom: 18px;
+    left: 18px;
+    z-index: 9999;
+    background: linear-gradient(145deg,#3b82f6,#6366f1);
+    color: #fff;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 24px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+    transition: 0.3s ease;
+}
+
+.btn-reset:hover {
+    transform: scale(1.05);
+}
+
+/* ===============================
+   HOVER LABEL
+=============================== */
+.label-hover {
+    position: fixed;
+    z-index: 9999;
+    background: rgba(15,23,42,.85);
+    backdrop-filter: blur(6px);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 10px;
+    font-size: 13px;
+    pointer-events: none;
+    display: none;
+}
+
+/* ===============================
+   LOGO
+=============================== */
+.map-logo-wrapper {
+    position: absolute;
+    top: 14px;
+    left: 0;
+    right: 0;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.map-logo {
+    height: 48px;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+}
+
+.map-kiri .map-logo {
+    transform: scale(0.9);
+}
+
+/* ===============================
+   POPUP KETERANGAN DI TENGAH KIRI
+=============================== */
+.info-overlay {
+    position: fixed;
+    left: 20px;  /* di sisi kiri */
+    top: calc(50%); /* awal tengah viewport */
+    transform: translateY(-50%); /* tengah vertikal */
+    width: 220px;   /* lebih compact */
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 12px;
+    background: rgba(1, 101, 57, 0.9);
+    color: #fdfafa;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    border: 1px solid rgba(255,255,255,0.08);
+    z-index: 9999;
+    transition: all 0.3s cubic-bezier(.4,0,.2,1);
+}
+
+/* Atur supaya muncul lebih tepat di tengah antara logo dan tombol back */
+@media (min-height: 600px) {
+    .info-overlay {
+        top: calc(14px + 60px + (100vh - 14px - 60px - 58px)/2); 
+        /* 14px = jarak top logo
+           60px = tinggi logo
+           58px = jarak dari bottom tombol Back + tinggi tombol kira-kira */
+        transform: translateY(0); /* sudah dihitung dengan calc */
+    }
+}
+
+/* Hilang saat map fokus ke wilayah */
+.info-overlay.hide {
+    opacity: 0;
+    transform: scale(0.85);
+    pointer-events: none;
+}
+
+/* Judul dan list lebih ringkas */
+.info-overlay h4 {
+    margin: 0 0 6px 0;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.info-overlay ul {
+    margin: 4px 0 0 0;
+    padding-left: 14px;
+}
+
+.info-overlay ul li {
+    font-size: 11px;
+    margin-bottom: 3px;
+    color: #d1d5db;
+}
+
+
+/* ✅ HILANG SAAT WILAYAH DIKLIK */
+.info-overlay.hide {
+    opacity: 0;
+    transform: translateY(-50%) scale(0.9);
+    pointer-events: none;
+}
+
+/* ===============================
+   RESPONSIVE
+=============================== */
+@media (max-width: 900px) {
+
+    .map-kiri {
+        width: 100% !important;
+    }
+
+    .panel-info,
+    .panel-muncul {
+        width: 100% !important;
+        max-width: 100%;
+        border-left: none;
+        border-top: 2px solid #e5e7eb;
+    }
+
+    .info-overlay {
+        width: 92%;
+        left: 50%;
+        top: auto;
+        bottom: 110px;
+        transform: translateX(-50%);
+        text-align: center;
+    }
+
+    .info-overlay.hide {
+        transform: translateX(-50%) scale(0.9);
+    }
+}
+/* ===============================
+   POPUP TABEL
+=============================== */
+#popupTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #fdfafa;
+}
+
+#popupTable th, #popupTable td {
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 4px 6px;
+    text-align: center;
+}
+
+#popupTable th {
+    background: rgba(255,255,255,0.1);
+    font-weight: 600;
+}
+@media (max-width: 900px) {
+    #popupTable th, #popupTable td {
+        font-size: 10px;
+        padding: 3px 4px;
+    }
+}
