@@ -1,0 +1,43 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "nama_pt": "STMIK Triguna Dharma",
+        "status": "Aktif",
+        "akreditasi": "Baik Sekali",
+        "jumlah_prodi": 4,
+        "biaya_kuliah": "Rp2.996.000 - Rp4.140.000",
+        "alamat": "Kota Medan, Prov. Sumatera Utara",
+        "logo": "https://domain.com/logo-trigunadharma.png",
+        "persen_lulus": "56.33%",
+        "brosur": "https://domain.com/brosur-triguna.pdf",
+        "website": "https://kampus.ac.id"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [98.677, 3.595]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nama_pt": "Universitas Muhammadiyah Sumatera Utara",
+        "status": "Aktif",
+        "akreditasi": "Unggul",
+        "jumlah_prodi": 34,
+        "biaya_kuliah": "Rp3.000.000 - Rp8.000.000",
+        "alamat": "Jl. Kapten Mukhtar Basri, Medan",
+        "logo": "https://domain.com/logo-umsu.png",
+        "persen_lulus": "72%",
+        "brosur": "https://domain.com/brosur-umsu.pdf",
+        "website": "https://umsu.ac.id"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [98.670, 3.590]
+      }
+    }
+  ]
+}
